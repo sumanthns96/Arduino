@@ -1,0 +1,25 @@
+#include<ESP8266WiFi.h>
+const char* ssid="AJ";
+const char* password="arshad123";
+const char* host="192.168.43.20";
+WiFiClient client;
+
+
+void setup() 
+{
+  
+  // put your setup code here, to run once:
+WiFi.begin(ssid,password);
+while(WiFi.status()!=WL_CONNECTED)
+delay(500);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+if(!client.connect(host,80))
+return;
+String url="/update/index.php?username=abc&ID=99&data=hello";
+client.print(String("GET ")+ url+ " HTTP/1.1\r\n" +"HOST: "+ host + "\r\n" + "Connection: close\r\n\r\n");
+//
+
+}
